@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
+import { API_URL, EXPENSE_ENDPOINTS } from '../config/apiConfig'
 
 const Dashboard = () => {
   const [expenses, setExpenses] = useState([])
@@ -23,7 +24,7 @@ const Dashboard = () => {
           return
         }
 
-        const res = await axios.get('http://localhost:5000/api/expenses', {
+        const res = await axios.get(`${API_URL}${EXPENSE_ENDPOINTS.LIST}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         const allExpenses = res.data.data
@@ -54,7 +55,7 @@ const Dashboard = () => {
         })
 
         setStats({ total, byCategory, thisMonth, thisWeek })
-        setExpenses(allExpenses.slice(0, 4)) // Only 4 recent activities
+        setExpenses(allExpenses.slice(0, 4)) 
       } catch (err) {
         if (err.response?.status === 401) {
           localStorage.removeItem('token')

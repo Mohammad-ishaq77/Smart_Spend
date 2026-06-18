@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from 'react-router-dom'
 import jsPDF from 'jspdf'
+import { API_URL, EXPENSE_ENDPOINTS } from '../config/apiConfig'
 
 const Expenses = () => {
   const navigate = useNavigate()
@@ -21,7 +22,7 @@ const Expenses = () => {
           return
         }
 
-        const res = await axios.get('http://localhost:5000/api/expenses', {
+        const res = await axios.get(`${API_URL}${EXPENSE_ENDPOINTS.LIST}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         setExpenses(res.data.data)
@@ -43,7 +44,7 @@ const Expenses = () => {
     setDeleteLoading(id)
     try {
       const token = localStorage.getItem('token')
-      await axios.delete(`http://localhost:5000/api/expenses/${id}`, {
+      await axios.delete(`${API_URL}${EXPENSE_ENDPOINTS.DELETE(id)}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       setExpenses((prev) => prev.filter((e) => e._id !== id))

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { API_URL, AUTH_ENDPOINTS } from '../config/apiConfig'
 
 const Register = () => {
   const [name, setName] = useState('')
@@ -45,7 +46,7 @@ const Register = () => {
     
     setIsLoading(true)
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/register', { name, email, password })
+      const res = await axios.post(`${API_URL}${AUTH_ENDPOINTS.REGISTER}`, { name, email, password })
       const { data } = res.data
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))

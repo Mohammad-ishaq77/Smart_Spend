@@ -18,3 +18,7 @@ Thumbs.db
 
 # Vite
 .vite/
+frontend/.env.development
+frontend/.env.production
+.env
+.env.*

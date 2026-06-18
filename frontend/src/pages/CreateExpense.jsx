@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { API_URL, EXPENSE_ENDPOINTS } from '../config/apiConfig'
 
 const CreateExpense = () => {
   const navigate = useNavigate()
@@ -25,7 +26,7 @@ const CreateExpense = () => {
       }
 
       await axios.post(
-        'http://localhost:5000/api/expenses',
+        `${API_URL}${EXPENSE_ENDPOINTS.CREATE}`,
         {
           title,
           description,

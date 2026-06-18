@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
+import { API_URL, AUTH_ENDPOINTS } from '../config/apiConfig'
 import { 
   Mail, 
   Lock, 
@@ -26,7 +27,7 @@ const Login = () => {
     setError(null)
     setIsLoading(true)
     try {
-      const res = await axios.post('http://localhost:5000/api/auth/login', { email, password })
+      const res = await axios.post(`${API_URL}${AUTH_ENDPOINTS.LOGIN}`, { email, password })
       const { data } = res.data
       localStorage.setItem('token', data.token)
       localStorage.setItem('user', JSON.stringify(data.user))
